@@ -1,12 +1,16 @@
 qx.Class.define("skilltester.page.KnolNav", {
 	extend : qx.ui.mobile.page.NavigationPage,
 
+	events : {
+		"go" : "qx.event.type.Data"
+	},
+	
 	construct : function() {
 		this.base(arguments);
 		this.set({
 			title : "Wissen",
 			showBackButton : true,
-			showBackButtonOnTablet: true,
+			showBackButtonOnTablet : true,
 			backButtonText : "Back"
 		});
 	},
@@ -14,10 +18,10 @@ qx.Class.define("skilltester.page.KnolNav", {
 	members : {
 		_initialize : function() {
 			this.base(arguments);
-			var knols = [{
+			var knols = [ {
 				title : "V-Arms",
-				path: "v-arms"
-			}];
+				path : "v-arms"
+			} ];
 			var knolList = new qx.ui.mobile.list.List({
 				configureItem : function(item, data, row) {
 					item.setTitle(data.title);
@@ -25,6 +29,10 @@ qx.Class.define("skilltester.page.KnolNav", {
 				}
 			});
 			knolList.setModel(new qx.data.Array(knols));
+			knolList.addListener("changeSelection", function(evt) {
+				var path = knols[evt.getData()].path;
+				this.fireDataEvent("go", {target: "/knol/" + path});
+			}, this);
 
 			this.getContent().add(knolList);
 		}

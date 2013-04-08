@@ -1,7 +1,7 @@
 qx.Class.define("skilltester.tricks.StandWalk", {
-	
+	extend: skilltester.tricks.Trick,
 	construct: function() {
-		this.base({
+		this.base(arguments, {
 			name: "Stand Walk"
 		});
 	},

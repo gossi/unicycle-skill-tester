@@ -53,53 +53,72 @@ qx.Class.define("skilltester.Application", {
 			 * -------------------------------------------------------------------------
 			 */
 
-			// var tricks = Object.create(null);
-			var trickPage = new skilltester.page.Trick();
+			var tricks = new skilltester.tricks.Tricks();
+			tricks.add(new skilltester.tricks.WheelWalkToStandWalk());
+			tricks.add(new skilltester.tricks.StandWalk());
+			
+			var trickPage = new skilltester.page.TrickPage();
 			var start = new skilltester.page.Start();
 
-			var nav = new skilltester.page.Nav();
-			nav.addListener("go", function(e) {
+			// navigation
+			var go = function(e) {
 				var data = e.getData();
 				if (data.target) {
-					switch (data.target) {
-					case "tricks":
-						trickNav.show();
-						break;
-						
-					case "knol":
-						knolNav.show();
-						break;
-					}
+					router.execute(data.target);
 				}
-			}, this);
+			},
+			goBack = function(e) {
+				router.execute("/nav");
+			};
+			var nav = new skilltester.page.Nav();
+			nav.addListener("go", go, this);
 			
 			var trickNav = new skilltester.page.TricksNav();
-			trickNav.addListener("back", function(e) {
-				nav.show({reverse: true});
-			}, this);
+			trickNav.setTricks(tricks.toArray());
+			trickNav.addListener("back", goBack, this);
+			trickNav.addListener("go", go, this);
 			
 			var knolNav = new skilltester.page.KnolNav();
-			knolNav.addListener("back", function(e) {
-				nav.show({reverse: true});
-			}, this);
+			knolNav.addListener("back", goBack, this);
+			knolNav.addListener("go", go, this);
 
 			var manager = new qx.ui.mobile.page.Manager();
 			manager.addMaster([ nav, trickNav, knolNav ]);
 			manager.addDetail([ start, trickPage ]);
 
 			start.show();
-			knolNav.show();
+			trickNav.show();
 
 			// Initialize the navigation
 			var router = new qx.application.Routing();
 			this.setRouting(router);
 
 			router.onGet("/", function(data) {
+				nav.show();
 				start.show();
 			}, this);
+			
+			router.onGet("/nav", function(data) {
+				nav.show({reverse: true});
+			});
 
 			router.onGet("/nav/knol", function(data) {
 				knolNav.show();
+			}, this);
+			
+			router.onGet("/nav/tricks", function(data) {
+				trickNav.show();
+			}, this);
+			
+			router.onGet("/trick/{id}", function(data) {
+				trickNav.show();
+				trickPage.setTrick(tricks.get(data.params.id));
+				trickPage.show();
+			}, this);
+			
+			router.onGet("/knol/{id}", function(data) {
+				knolNav.show();
+				console.log(data.params.id);
 			}, this);
 
 			router.init();

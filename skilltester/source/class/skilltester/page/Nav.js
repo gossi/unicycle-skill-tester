@@ -31,7 +31,7 @@ qx.Class.define("skilltester.page.Nav", {
 			navList.setModel(new qx.data.Array(pages));
 			navList.addListener("changeSelection", function(evt) {
 				var path = pages[evt.getData()].path;
-				this.fireDataEvent("go", {target: path});
+				this.fireDataEvent("go", {target: "/nav/" + path});
 			}, this);
 
 			this.getContent().add(navList);
