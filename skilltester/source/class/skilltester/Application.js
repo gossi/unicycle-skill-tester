@@ -23,7 +23,7 @@ qx.Class.define("skilltester.Application", {
 	extend : qx.application.Mobile,
 
 	properties : {
-		routing : {
+		router : {
 			init : null
 		}
 	},
@@ -52,76 +52,256 @@ qx.Class.define("skilltester.Application", {
 			 * following code to create your application.
 			 * -------------------------------------------------------------------------
 			 */
-
-			var tricks = new skilltester.tricks.Tricks();
-			tricks.add(new skilltester.tricks.WheelWalkToStandWalk());
-			tricks.add(new skilltester.tricks.StandWalk());
 			
-			var trickPage = new skilltester.page.TrickPage();
-			var start = new skilltester.page.Start();
-
-			// navigation
-			var go = function(e) {
-				var data = e.getData();
-				if (data.target) {
-					router.execute(data.target);
-				}
-			},
-			goBack = function(e) {
-				router.execute("/nav");
-			};
-			var nav = new skilltester.page.Nav();
-			nav.addListener("go", go, this);
+			// Tricks
+			this._createActions();
+			this._createGroups();
+			this._createTricks();
 			
-			var trickNav = new skilltester.page.TricksNav();
-			trickNav.setTricks(tricks.toArray());
-			trickNav.addListener("back", goBack, this);
-			trickNav.addListener("go", go, this);
-			
-			var knolNav = new skilltester.page.KnolNav();
-			knolNav.addListener("back", goBack, this);
-			knolNav.addListener("go", go, this);
-
+			// Pages
 			var manager = new qx.ui.mobile.page.Manager();
-			manager.addMaster([ nav, trickNav, knolNav ]);
-			manager.addDetail([ start, trickPage ]);
-
-			start.show();
-			trickNav.show();
-
-			// Initialize the navigation
+			this.__createPages(manager);
+			
+			// Routing and Navigation
 			var router = new qx.application.Routing();
-			this.setRouting(router);
+			this.setRouter(router);
+			this.__createRoutes(router);
+			router.init();
+		},
+		
+		__navPage : null,
+		__knolNavPage : null,
+		__testNavPage : null,
+		__startPage : null,
+		__testPage : null,
+		__resultPage : null,
+		
+		/**
+		 * Creates the pages for this app
+		 * @param {qx.ui.mobile.page.Manager} manager
+		 */
+		__createPages: function(manager) {
+			this.__navPage = new skilltester.page.NavPage();
+			this.__testNavPage = new skilltester.page.TestNavPage();
+			this.__knolNavPage = new skilltester.page.KnolNavPage();
+			this.__startPage = new skilltester.page.StartPage();
+			this.__testPage = new skilltester.page.TestPage();
+			this.__resultPage = new skilltester.page.ResultPage();
 
+			manager.addMaster([ this.__navPage, this.__testNavPage, this.__knolNavPage ]);
+			manager.addDetail([ this.__startPage, this.__testPage, this.__resultPage ]);
+		},
+
+		showPage: function(id, data) {
+			var registry = skilltester.registry.PageRegistry.getInstance();
+			if (registry.has(id)) {
+				var page = registry.get(id), options = {};
+				
+				if (data.customData instanceof Object && id in data.customData) {
+					options = data.customData[id];
+				}
+				
+				page.show(options);
+			}
+		},
+
+		/**
+		 * Creates the routes for this app
+		 * @param {qx.application.Routing} router
+		 */
+		__createRoutes: function(router) {
 			router.onGet("/", function(data) {
-				nav.show();
-				start.show();
+				this.showPage('nav', data);
+				this.showPage('start', data);
 			}, this);
 			
 			router.onGet("/nav", function(data) {
-				nav.show({reverse: true});
-			});
+				this.showPage('nav', data);
+			}, this);
 
 			router.onGet("/nav/knol", function(data) {
-				knolNav.show();
+				this.showPage('knol-nav', data);
 			}, this);
 			
-			router.onGet("/nav/tricks", function(data) {
-				trickNav.show();
+			router.onGet("/nav/tests", function(data) {
+				this.showPage('test-nav', data);
 			}, this);
 			
-			router.onGet("/trick/{id}", function(data) {
-				trickNav.show();
-				trickPage.setTrick(tricks.get(data.params.id));
-				trickPage.show();
+			router.onGet("/test/{slug}", function(data) {
+				this.__testPage.setTrick(skilltester.registry.TrickRegistry.getInstance().getBySlug(data.params.slug));
+				this.showPage('test-nav', data);
+				this.showPage('test', data);
+			}, this);
+			
+			router.onGet("/result/{slug}/{params}", function(data) {
+				this.__resultPage.setTrick(skilltester.registry.TrickRegistry.getInstance().getBySlug(data.params.slug));
+				this.__resultPage.setParams(data.params.params);
+				this.showPage('test-nav', data);
+				this.showPage('result', data);
 			}, this);
 			
 			router.onGet("/knol/{id}", function(data) {
-				knolNav.show();
-				console.log(data.params.id);
+				this.showPage('knol', data);
 			}, this);
-
-			router.init();
+		},
+		
+		_createActions: function() {
+			new skilltester.entities.Action({
+				id: "extend-legs",
+				title: "Beine durchstrecken",
+				description: "Die Beine werden durchgestreckt"
+			});
+			new skilltester.entities.Action({
+				id: "extend-upper-body",
+				title: "Hebeln mit dem Oberkörper",
+				description: "Der Oberkörper knickt an der Hälfte ein, um ihn dann noch oben zu beschleunigen. Mit dem Schwung wird der ganze Körper aufgerichtet.",
+				mistake: "critical"
+			});
+			new skilltester.entities.Action({
+				id: "leaning-upper-body",
+				type: "int",
+				title: "Hüftknick/Oberkörper Neigung [°]",
+				description: "Der Winkel Rumpf-Bein-Winkel: 180° für durchgestreckten Oberkörper, 90° für einen rechten Winkel im Hüftgelenk."
+			});
+			new skilltester.entities.Action({
+				id: "hand-on-seat",
+				title: "Hand am Sattel",
+				description: "Eine Hand hält den Sattel vorne am Griff fest.",
+				mistake: "fatal"
+			});
+			
+			new skilltester.entities.Action({
+				id: "rev-per-minute",
+				type: "int",
+				title: "Umdrehungen pro Minute",
+				description: "Die Geschwindigkeit gemessen an den Umdrehungen pro Minute"
+			});
+			
+			
+			new skilltester.entities.Action({
+				id: "toe-none",
+				title: "Nichts",
+				description: "Keine wirkliche Muskelaktivität; die Fußspitze labbert."
+			});
+			new skilltester.entities.Action({
+				id: "point",
+				title: "Point",
+				description: "Die Fußspitze ist durchgestreckt. Die Wadenmuskulatur ist sichtbar konrahiert und von Fußspitze zum Knie ergibt sich eine gerade Linie."
+			});
+			new skilltester.entities.Action({
+				id: "flex",
+				title: "Flex",
+				description: "Die Fußspitze ist angezogen. Die Wadenmuskulatur ist sichtbar gedehnt und der Schienbeinmuskel kontrahiert."
+			});
+			new skilltester.entities.Action({
+				id: "toe",
+				type: "radio",
+				title: "Fußspitze",
+				items: ["toe-none", "point", "flex"]
+			});
+			new skilltester.entities.Action({
+				id: "extended-leg",
+				title: "Durchgestrecktes Bein?",
+				description: "Ist das Bein durchgestreckt? Muskelspannung im Bein ist wahrnehmbar."
+			});
+			
+		},
+		
+		_createGroups: function() {
+			new skilltester.entities.Group({
+				id: "stand-up",
+				title: "Körper Aufrichten",
+				description: "Die Methode um in die Stand-Up Position zu gelangen"
+			});
+			new skilltester.entities.Group({
+				id: "speed",
+				title: "Geschwindigkeit"
+			});
+			new skilltester.entities.Group({
+				id: "body-tension",
+				title: "Körperspannung"
+			});
+			new skilltester.entities.Group({
+				id: "aesthetics",
+				title: "Ästhetik"
+			});
+		},
+		
+		_createTricks: function() {
+			new skilltester.entities.Trick({
+				title: "Standwalk"
+			});
+			new skilltester.entities.Trick({
+				title: "Wheel Walk to Stand Walk",
+				items: {
+					"stand-up": ["extend-legs", "extend-upper-body", "hand-on-seat"]
+				}
+			});
+			new skilltester.entities.Trick({
+				title: "Spin 1ft ext",
+				items: {
+					"speed": ["rev-per-minute"],
+					"body-tension": ["extended-leg", "toe"]
+				},
+				feedback: {
+					"rev-per-minute": {
+						values: {
+							"<45": {
+								value: 0,
+								feedback: "Sehr viel üben du noch musst."
+							},
+							"45-60": {
+								value: 1,
+								feedback: "Die fährst den Spin mit Basisgeschwindigkeit"
+							},
+							"61-80": {
+								value: 2,
+								feedback: "Oha, dein Spin ist ja schon ein bisschen schnell - Geb noch weiter Gas!"
+							},
+							"81-100": {
+								value: 3,
+								feedback: "Nun, dein Spin hat ja schon eine Stramme Geschwindigkeit, ein bisschen mehr geht noch!"
+							},
+							"101-120": {
+								value: 4,
+								feedback: "Das ist ja mal ein Spin mit Dampf!"
+							},
+							">120": {
+								value: 5,
+								feedback: "Boah Krass, ein Spin mit Volldampf!"
+							}
+						},
+						max: 5,
+						percent: 25
+					},
+					"extended-leg": {
+						weight: 1
+					},
+					"toe": {
+						values: {
+							"toe-none": {
+								value: 0
+							},
+							"point": {
+								value: 5
+							},
+							"flex": {
+								value: 0
+							}
+						},
+						max: 5
+					},
+					conditionals: [{
+						conditions: {
+							and: {
+								"extended-leg" : "on",
+								"toe": "point"
+							}
+						},
+						feedback: ["Dein Bein muss sicherlich so starr wie ein Holzbein anfühlen, oder? Aber so ist es richtig. Die Streckung zeugt von trainierter Körperspannung."]
+					}]
+				}
+			});
 		}
 	}
 });

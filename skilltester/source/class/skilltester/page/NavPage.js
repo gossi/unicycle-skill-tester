@@ -1,23 +1,24 @@
-qx.Class.define("skilltester.page.Nav", {
+qx.Class.define("skilltester.page.NavPage", {
 	extend : qx.ui.mobile.page.NavigationPage,
-
-	events : {
-		"go" : "qx.event.type.Data"
-	},
+	implement: [skilltester.registry.IRegistryItem],
 
 	construct : function() {
 		this.base(arguments);
+		
 		this.set({
+			id: "nav",
 			title : "Navigation"
 		});
+		
+		skilltester.registry.PageRegistry.getInstance().add(this);
 	},
 
 	members : {
 		_initialize : function() {
 			this.base(arguments);
 			var pages = [ {
-				title : "Tricks",
-				path: "tricks"
+				title : "Tests",
+				path: "tests"
 			}, {
 				title : "Wissen",
 				path : "knol"
@@ -31,7 +32,7 @@ qx.Class.define("skilltester.page.Nav", {
 			navList.setModel(new qx.data.Array(pages));
 			navList.addListener("changeSelection", function(evt) {
 				var path = pages[evt.getData()].path;
-				this.fireDataEvent("go", {target: "/nav/" + path});
+				qx.core.Init.getApplication().getRouter().execute("/nav/" + path, {});
 			}, this);
 
 			this.getContent().add(navList);

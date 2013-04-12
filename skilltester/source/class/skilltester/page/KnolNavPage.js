@@ -1,18 +1,19 @@
-qx.Class.define("skilltester.page.KnolNav", {
+qx.Class.define("skilltester.page.KnolNavPage", {
 	extend : qx.ui.mobile.page.NavigationPage,
-
-	events : {
-		"go" : "qx.event.type.Data"
-	},
+	implement: [skilltester.registry.IRegistryItem],
 	
 	construct : function() {
 		this.base(arguments);
+		
 		this.set({
+			id: "knol-nav",
 			title : "Wissen",
 			showBackButton : true,
 			showBackButtonOnTablet : true,
 			backButtonText : "Back"
 		});
+		
+		skilltester.registry.PageRegistry.getInstance().add(this);
 	},
 
 	members : {
@@ -21,6 +22,9 @@ qx.Class.define("skilltester.page.KnolNav", {
 			var knols = [ {
 				title : "V-Arms",
 				path : "v-arms"
+			}, {
+				title: qx.core.Environment.get("device.type"),
+				path : "noop"
 			} ];
 			var knolList = new qx.ui.mobile.list.List({
 				configureItem : function(item, data, row) {
@@ -31,10 +35,18 @@ qx.Class.define("skilltester.page.KnolNav", {
 			knolList.setModel(new qx.data.Array(knols));
 			knolList.addListener("changeSelection", function(evt) {
 				var path = knols[evt.getData()].path;
-				this.fireDataEvent("go", {target: "/knol/" + path});
+				qx.core.Init.getApplication().getRouter().execute("/knol/" + path);
 			}, this);
 
 			this.getContent().add(knolList);
+		},
+		
+		_back: function(e) {
+			qx.core.Init.getApplication().getRouter().execute("/nav", {
+				"nav": {
+					reverse: true
+				}
+			});
 		}
 	}
 });
