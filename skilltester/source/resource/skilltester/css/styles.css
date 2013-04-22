@@ -1,3 +1,7 @@
+/**
+FORM
+*/
+
 .noMargin {
 	margin: 0;
 }
@@ -24,7 +28,23 @@ input[type="number"].intInput {
 	font-size: 0.9em;
 }
 
+/**
+RESULT
+*/
+.result-page h2 {
+	text-indent: 0;
+}
+
+.evaluation {
+	min-height: 200px;
+}
+
 .mark {
+	display: block;
+	float: left;
+	margin-left: 10px;
+	margin-right: 20px;
+	
 	border-radius: 50%;
 	width: 150px;
 	height: 150px;
@@ -64,4 +84,43 @@ input[type="number"].intInput {
 .mark[data-value="6"] {
 	background-color: #880000;
 	color: #FFF;
+}
+
+.markBox {
+	float: left;
+	clear: left;
+}
+
+.markBox h2 {
+	margin-top: 0;
+}
+
+.evaluation .score-reached {
+	font-size: 4.3em;
+	line-height: 0.9em;
+}
+
+
+.score-reached {
+	font-size: 1.25em;
+	color: #000;
+}
+
+.score-maximum {
+	font-size: 0.9em;
+	color: #999;
+}
+
+.score {
+	float: right;
+	clear: right;
+}
+
+.distribution div {
+	line-height: 1.3em;
+}
+
+div.result {
+	color: #999;
+	text-indent: 20px;
 }

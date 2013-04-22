@@ -134,6 +134,7 @@ qx.Class.define("skilltester.Application", {
 			}, this);
 			
 			router.onGet("/result/{slug}/{params}", function(data) {
+				this.__resultPage.resetTrick();
 				this.__resultPage.setTrick(skilltester.registry.TrickRegistry.getInstance().getBySlug(data.params.slug));
 				this.__resultPage.setParams(data.params.params);
 				this.showPage('test-nav', data);
@@ -152,10 +153,9 @@ qx.Class.define("skilltester.Application", {
 				description: "Die Beine werden durchgestreckt"
 			});
 			new skilltester.entities.Action({
-				id: "extend-upper-body",
+				id: "accelerate-upper-body",
 				title: "Hebeln mit dem Oberkörper",
-				description: "Der Oberkörper knickt an der Hälfte ein, um ihn dann noch oben zu beschleunigen. Mit dem Schwung wird der ganze Körper aufgerichtet.",
-				mistake: "critical"
+				description: "Der Oberkörper knickt an der Hälfte ein, um ihn dann noch oben zu beschleunigen. Mit dem Schwung wird der ganze Körper aufgerichtet."
 			});
 			new skilltester.entities.Action({
 				id: "leaning-upper-body",
@@ -166,8 +166,7 @@ qx.Class.define("skilltester.Application", {
 			new skilltester.entities.Action({
 				id: "hand-on-seat",
 				title: "Hand am Sattel",
-				description: "Eine Hand hält den Sattel vorne am Griff fest.",
-				mistake: "fatal"
+				description: "Eine Hand hält den Sattel vorne am Griff fest."
 			});
 			
 			new skilltester.entities.Action({
@@ -234,7 +233,39 @@ qx.Class.define("skilltester.Application", {
 			new skilltester.entities.Trick({
 				title: "Wheel Walk to Stand Walk",
 				items: {
-					"stand-up": ["extend-legs", "extend-upper-body", "hand-on-seat"]
+					"stand-up": ["extend-legs", "leaning-upper-body", "accelerate-upper-body", "hand-on-seat"]
+				},
+				feedback: {
+					"extend-legs": {
+						
+					},
+					"leaning-upper-body": {
+						values: {
+							"<90": {
+								value: 0
+							},
+							"90-135": {
+								value: 0,
+								mistake: "critical"
+							},
+							"135-170": {
+								value: 0.5
+							},
+							"171-190": {
+								value: 5,
+								feedback: "Das ist die ideale Haltung."
+							}
+						},
+						max: 5
+					},
+					"accelerate-upper-body": {
+						inverted: true,
+						mistake: "critical"
+					},
+					"hand-on-seat": {
+						inverted: true,
+						mistake: "fatal"
+					}
 				}
 			});
 			new skilltester.entities.Trick({
@@ -252,7 +283,7 @@ qx.Class.define("skilltester.Application", {
 							},
 							"45-60": {
 								value: 1,
-								feedback: "Die fährst den Spin mit Basisgeschwindigkeit"
+								feedback: "Du fährst den Spin mit Basisgeschwindigkeit"
 							},
 							"61-80": {
 								value: 2,
