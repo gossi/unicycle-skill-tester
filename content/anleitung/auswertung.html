@@ -1,0 +1,53 @@
+<section>
+<h1>Auswertung</h1>
+<article>
+	<h2>Schnell-Übersicht</h2>
+	<p>In der Schnell-Übersicht finden sich die Note, Punkte und die Fehleranzahl. Die Note ist der
+	ausschlaggebende Faktor und ergibt sich aus den Punkten und Fehlern. Die Berechnung der Note wird
+	weiter unten erklärt.</p>
+	
+	<h2>Bewertung der Aktionen</h2>
+	<p>Die Bewertung gibt Feedback für die Aktionen entsprechend in Bezug auf die Eingabe, die am
+	besten mit dem Fahrer durchgegangen wird. So fällt auch	die Bepunktung der Aktion aus. Hinzu kommt
+	der farbliche Indikator:</p>
+	<p><span class="value-ok">grün</span>: Alles besten, mehr geht nicht.</p>
+	<p><span class="value-can-do-better">orange</span>: Hier kann man sich noch verbessern.</p>
+	<p><span class="value-mistake">rot</span>: Hier liegt ein 
+	<a href="#/knol/bewegungsfehler">Bewegungsfehler</a> vor. Es ist dringend erforderlich diesen
+	Fehler auszumerzen, bevor die anderen Aktionen angegangen werden.</p>
+	
+	<h2>Berechnung der Note</h2>
+	<p>Die Note entspricht den deutschen Schulnoten, von 1 (beste) bis 6 (schlechteste). Die Noten 
+	1 - 5 werden dann anhand der Tabelle unten vergeben, dafür ausschlaggebend sind die erreichten
+	Punkte. Es gibt aber auch 2 Spezialfälle:</p>
+	<ol>
+		<li>Die Note 6 spielt dabei eine Sonderrolle und wird nur vergeben, wenn ein fataler 
+		Bewegungsfehler festgestellt wurde.</li>
+		<li>Bei einem anderen Bewegungsfehler gibt es die Note 5.</li>
+	</ol>
+	<p>Sobald also ein Bewegungsfehler vorhanden ist, wird die Note nicht besser als 5 sein, auch 
+	dann nicht wenn mehr Punkte erreicht wurden.</p>
+
+	<h3>Notentabelle</h3>
+	<table class="ltrTable spaceTable borderTable">
+	<tr>
+		<th>Note</th>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+	</tr>
+	<tr>
+		<th>Punkte</th>
+		<td>&gt; 91</td>
+		<td>91-81</td>
+		<td>80-67</td>
+		<td>66-50</td>
+		<td>49-25</td>
+		<td>&lt; 25</td>
+	</tr>
+	</table>
+</article>
+</section>

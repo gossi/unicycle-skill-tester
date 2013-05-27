@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="skilltester"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+	namespace="gossi\skilltester\entities">
+
+	<table name="trick">
+		<column name="id" type="INTEGER" primaryKey="true" required="true"
+			autoIncrement="true" />
+		<column name="title" type="VARCHAR" size="100" />
+		
+		<behavior name="sluggable">
+			<parameter name="slug_column" value="title" />
+		</behavior>
+	</table>
+
+	<table name="action">
+		<column name="id" type="INTEGER" primaryKey="true" required="true"
+			autoIncrement="true" />
+		<column name="type" type="VARCHAR" size="45" default="boolean" />
+		<column name="title" type="VARCHAR" size="100" />
+		<column name="description" type="LONGVARCHAR" />
+
+		<behavior name="i18n">
+			<parameter name="i18n_columns" value="title, description" />
+			<parameter name="default_locale" value="de" />
+		</behavior>
+	</table>
+
+	<table name="action_map" isCrossRef="true">
+		<column name="parent_id" type="INTEGER" primaryKey="true"
+			required="true" />
+		<column name="child_id" type="INTEGER" primaryKey="true"
+			required="true" />
+
+		<foreign-key foreignTable="action">
+			<reference local="parent_id" foreign="id" />
+			<reference local="child_id" foreign="id" />
+		</foreign-key>
+		<index name="fk_action_has_action_action2_idx">
+			<index-column name="child_id" />
+		</index>
+		<index name="fk_action_has_action_action1_idx">
+			<index-column name="parent_id" />
+		</index>
+	</table>
+
+	<table name="group">
+		<column name="id" type="INTEGER" primaryKey="true" required="true"
+			autoIncrement="true" />
+		<column name="title" type="VARCHAR" size="45" />
+		<column name="description" type="LONGVARCHAR" />
+
+		<behavior name="i18n">
+			<parameter name="i18n_columns" value="title, description" />
+			<parameter name="default_locale" value="de" />
+		</behavior>
+	</table>
+
+	<table name="item">
+		<column name="trick_id" type="INTEGER" primaryKey="true"
+			required="true" />
+		<column name="group_id" type="INTEGER" primaryKey="true"
+			required="true" />
+		<column name="action_id" type="INTEGER" primaryKey="true"
+			required="true" />
+		<foreign-key name="fk_trick_has_group_trick" foreignTable="trick">
+			<reference local="trick_id" foreign="id" />
+		</foreign-key>
+		<foreign-key name="fk_trick_has_group_group1"
+			foreignTable="group">
+			<reference local="group_id" foreign="id" />
+		</foreign-key>
+		<foreign-key name="fk_items_action1" foreignTable="action">
+			<reference local="action_id" foreign="id" />
+		</foreign-key>
+		<index name="fk_trick_has_group_group1_idx">
+			<index-column name="group_id" />
+		</index>
+		<index name="fk_trick_has_group_trick_idx">
+			<index-column name="trick_id" />
+		</index>
+		<index name="fk_items_action1_idx">
+			<index-column name="action_id" />
+		</index>
+	</table>
+
+	<table name="feedback">
+		<column name="id" type="INTEGER" primaryKey="true" required="true"
+			autoIncrement="true" />
+		<column name="trick_id" type="INTEGER" required="true" />
+		<column name="action_id" type="INTEGER" required="true" />
+		<column name="percent" type="INTEGER" />
+		<column name="weight" type="INTEGER" />
+		<column name="max" type="INTEGER" />
+		<column name="inverted" type="BOOLEAN" />
+		<column name="mistake" type="VARCHAR" size="45" />
+		
+		<foreign-key name="fk_trick_has_action_trick1"
+			foreignTable="trick">
+			<reference local="trick_id" foreign="id" />
+		</foreign-key>
+		<foreign-key name="fk_trick_has_action_action1"
+			foreignTable="action">
+			<reference local="action_id" foreign="id" />
+		</foreign-key>
+		<index name="fk_trick_has_action_action1_idx">
+			<index-column name="action_id" />
+		</index>
+		<index name="fk_trick_has_action_trick1_idx">
+			<index-column name="trick_id" />
+		</index>
+	</table>
+
+	<table name="value">
+		<column name="id" type="INTEGER" primaryKey="true" required="true"
+			autoIncrement="true" />
+		<column name="feedback_id" type="INTEGER" required="true" />
+		<column name="value" type="VARCHAR" size="45" />
+		<column name="text" type="LONGVARCHAR" />
+		<column name="range" type="VARCHAR" size="45" />
+		<column name="mistake" type="VARCHAR" size="45" />
+		
+		<foreign-key name="fk_values_feedback1" foreignTable="feedback">
+			<reference local="feedback_id" foreign="id" />
+		</foreign-key>
+		<index name="fk_values_feedback1_idx">
+			<index-column name="feedback_id" />
+		</index>
+
+		<behavior name="i18n">
+			<parameter name="i18n_columns" value="text" />
+			<parameter name="default_locale" value="de" />
+		</behavior>
+	</table>
+
+</database>

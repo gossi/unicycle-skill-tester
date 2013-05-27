@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="vendor/composer"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/" kind="src" path="vendor/propel/propel1/runtime/lib"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/|Symfony/Component/HttpFoundation/Resources/stubs/" kind="src" path="vendor/symfony/http-foundation"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/" kind="src" path="vendor/symfony/routing"/>
+	<buildpathentry kind="src" path="src"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/" kind="src" path="vendor/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/" kind="src" path="vendor/phing/phing/classes/phing"/>
+	<buildpathentry excluding="propel/propel1/generator/lib/" kind="src" path="vendor/propel/propel1/generator/lib"/>
+</buildpath>

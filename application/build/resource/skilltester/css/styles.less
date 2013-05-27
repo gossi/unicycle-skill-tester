@@ -1,0 +1,300 @@
+@import '../vendor/font-awesome-3.1.1/less/font-awesome.less';
+
+/**
+GLOBAL
+*/
+h2 {
+	text-indent: 0;
+}
+
+div[id*="nav"] h2 {
+	text-indent: 10px;
+}
+
+article {
+	
+	h3 {
+		font-weight: normal;
+		font-size: 15px;
+		padding-top: 10px;
+		color: #666;
+	}
+	
+	figure, p {
+		margin: 10px 0;
+	}
+	
+	ul {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		
+		font: normal 1em Helvetica;
+		
+		li {
+			border: 0;
+			margin: 0;
+			
+			padding: 0;
+			
+			color: #000;
+			
+			list-style-type: none;
+			line-height: 1.25em;
+		}
+		
+		&.references {
+			li {
+				padding-left: 25px;
+				text-indent: -25px;	
+			}
+		}
+	}
+}
+
+cite {
+	font-style: italic;
+}
+
+figcaption {
+	font-size: 90%;
+}
+
+a, a:link, a:visited {
+	color: #3D72C9;
+}
+
+.group > .group {
+	margin: 0;
+}
+
+
+/**
+NAV
+*/
+
+#nav ul.list li > div {
+	margin-left: 5px;
+}
+
+/**
+STARTPAGE
+*/
+
+blockquote {
+	font-family: Georgia, "Times New Roman", Serif;
+	font-size: 34px;
+	font-style: italic;
+	
+	margin: 20px;
+
+	&:before {
+		.icon-muted;
+		.icon-2x;
+		.fontawesome;
+		.icon-quote-left;
+		.pull-left;
+		margin-right: 20px;
+	}
+}
+
+ol {
+	margin: 10px;
+	margin-left: 25px;
+}
+
+ol > li {
+	list-style-type: latin;
+}
+
+/**
+FORM
+*/
+
+.noMargin {
+	margin: 0;
+}
+
+input[type="number"].intInput {
+	width: 55px;
+}
+
+.description {
+	font-weight: normal;
+	font-size: 0.8em;
+	color: #999;
+}
+
+.group-description {
+	text-indent: 5px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+
+.options > li {
+	border: 0;
+}
+
+.options > li > div {
+	margin-left: 10px;
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	-ms-box-pack: center;
+	-o-box-pack: center;
+	box-pack: center;
+}
+
+.options > li > div.title {
+	font-size: 0.9em;
+}
+
+/**
+RESULT
+*/
+.result-page > .hbox > div {
+	margin: 0;
+}
+
+.result-page > .hbox > .summary {
+	min-width: 280px;
+	margin-right: 10px;
+}
+
+.summary .group {
+	margin: 0;
+}
+
+.summary .group:first-child {
+	min-height: 200px;
+}
+
+.mark {
+	display: block;
+	float: left;
+	margin-left: 10px;
+	margin-right: 20px;
+	
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	line-height: 150px;
+	
+	background-color: #080;
+	
+	text-align: center;
+	font-size: 80px;
+}
+
+.mark[data-value="1"] {
+	background-color: #00B800;
+	color: #FFF;
+}
+
+.mark[data-value="2"] {
+	background-color: #00B2DD;
+	color: #FFF;
+}
+
+.mark[data-value="3"] {
+	background-color: #EDED00;
+	color: #000;
+}
+
+.mark[data-value="4"] {
+	background-color: #FF8000;
+	color: #FFF;
+}
+
+.mark[data-value="5"] {
+	background-color: #DD3A00;
+	color: #FFF;
+}
+
+.mark[data-value="6"] {
+	background-color: #880000;
+	color: #FFF;
+}
+
+.markBox {
+	float: left;
+	clear: left;
+}
+
+.markBox h2 {
+	margin-top: 0;
+}
+
+.summary .score-reached {
+	font-size: 4.3em;
+	line-height: 0.9em;
+}
+
+.score-reached {
+	font-size: 1.25em;
+	color: #000;
+}
+
+.score-maximum {
+	font-size: 0.9em;
+	color: #999;
+}
+
+.score {
+	float: right;
+	clear: right;
+}
+
+/**
+EVALUATION
+*/
+.evaluation div {
+	line-height: 1.3em;
+}
+
+.result {
+	color: #999;
+	text-indent: 20px;
+}
+
+.value-ok {
+	color: #080;
+}
+
+.value-can-do-better {
+	color: #FF8000;
+}
+
+.value-mistake {
+	color: #800;
+}
+
+.evaluation .feedback-text {
+	text-indent: 0;
+	padding-top: 2px;
+	padding-left: 20px;
+	padding-bottom: 5px;
+}
+
+/**
+MODULES
+*/
+
+/* Table  */
+table {
+	border-collapse: collapse;
+}
+
+
+.ltrTable th {
+	text-align: left;
+}
+
+.spaceTable td, .spaceTable th {
+  padding: 3px;
+  vertical-align: middle;
+  border: 1px solid #DDD;
+}
+
+.borderTable td, .borderTable th {
+  border: 1px solid #DDD;
+}

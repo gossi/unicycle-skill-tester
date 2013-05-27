@@ -1,0 +1,2 @@
+com.dubture.composer.corebuildpath.includes.excludes=<buildpathentry excluding\="propel/propel1/generator/lib/" kind\="src" path\="vendor"/>\n
+eclipse.preferences.version=1
