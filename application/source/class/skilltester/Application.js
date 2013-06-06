@@ -122,8 +122,12 @@ qx.Class.define("skilltester.Application", {
 		 * @param {qx.application.Routing} router
 		 */
 		__createRoutes: function(router) {
+			var deviceType = qx.core.Environment.get("device.type");
+			
 			router.onGet("/", function(data) {
-				this.showPage('nav', data);
+				if (deviceType !== 'mobile') {
+					this.showPage('nav', data);
+				}
 				this.showPage('start', data);
 			}, this);
 			

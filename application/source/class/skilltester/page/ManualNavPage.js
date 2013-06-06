@@ -38,7 +38,7 @@ qx.Class.define("skilltester.page.ManualNavPage", {
 				configureItem : controller.configureItem
 			});
 			list.setModel(new qx.data.Array([{
-				title : "Übersicht",
+				title : "Anleitung",
 				path : ""
 			}, {
 				title: "Schnellanleitung",

@@ -1,0 +1,110 @@
+html,
+body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+}
+
+#wrap > .container,
+#wrap > .hero-unit {
+	padding-top: 60px;
+}
+
+#wrap > .hero-unit + .container {
+	padding-top: 0;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+footer {
+	height: 59px;
+}
+footer {
+	border-top: 1px solid #DDD;
+	background-color: #f5f5f5;
+	opacity: 0.9;
+}
+footer:hover {
+	opacity: 1;
+}
+
+footer > .container {
+	padding: 20px 0 0 0;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+
+.hero-unit {
+	background-color: #3EC2F2;
+	background-image: -webkit-linear-gradient(#C5DFE8, #3EC2F2);
+	background-image: -o-linear-gradient(#C5DFE8, #3EC2F2);
+	background-image: -ms-linear-gradient(#C5DFE8, #3EC2F2);
+	background-image: linear-gradient(#C5DFE8, #3EC2F2);
+	border-radius: 0;
+	border-bottom: 1px solid #AAA;
+	margin-top: 0;
+	padding-bottom: 0;
+}
+
+blockquote {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 1.8em;
+	font-style: italic;
+	line-height: 1.2em;
+	border: 0;
+}
+
+#screen-carousel {
+	height: 260px;
+	width: 260px;
+}
+
+#screen-carousel .carousel-inner {
+	height: 260px;
+	width: 340px;
+	margin-left: -40px;
+}
+
+#screen-carousel a {
+	color: #000;
+}
+
+#screen-carousel img {
+	max-width: 250px;
+	max-height: 250px;
+	margin: auto;
+}
+
+#screen-carousel .carousel-control {
+    top: 130px;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border-width: 0;
+    font-size: 30px;
+    line-height: 25px;
+    left: -45px;
+    outline: none;
+}
+  
+#screen-carousel .carousel-control.right {
+	left: auto;
+	right: -45px;
+}

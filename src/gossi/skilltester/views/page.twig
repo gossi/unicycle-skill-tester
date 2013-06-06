@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <base href="{{ base }}/">
+    <title>Unicycle Skilltester App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="assets/components/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/skilltester.css" rel="stylesheet">
+    <link href="assets/components/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/components/font-awesome/build/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/components/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/components/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/components/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="assets/components/bootstrap/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="assets/components/bootstrap/ico/favicon.png"> -->
+  </head>
+
+  <body>
+
+    <div id="wrap">
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="">Unicycle Skilltester App</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+			            	{% set links = {
+			            		'': 'Startseite', 
+			            		'installation': 'Installieren',
+								'anleitung': 'Anleitung',
+								'mitmachen': 'Mitmachen'}
+			            	%}
+			            	
+			            	{% for url, label in links %}
+			            	<li{% if active == url %} class="active"{% endif %}><a href="{{ url }}">{{ label }}</a></li>
+			            	{% endfor %}
+			            
+							<!-- <li class="active"><a href="">Startseite</a></li>
+							<li><a href="installation">Installieren</a></li>
+							<li><a href="anleitung">Anleitung</a></li>
+							<li><a href="mitmachen">Mitmachen</a></li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+    
+		{{ content|raw }}
+    	<div id="push"></div>
+    </div>
+    
+    <footer>
+    	<div class="container">
+    		<p>Unicycle Skilltester App · Entwickelt von <a href="http://gos.si">Thomas Gossmann</a>
+    		with <i class="icon-heart"></i></p>
+    	</div>
+    </footer>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/components/jquery/jquery.min.js"></script>
+    <script src="assets/components/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

@@ -1274,13 +1274,17 @@ GLOBAL
 h2 {
   text-indent: 0;
 }
+h2,
+h3 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
 div[id*="nav"] h2 {
   text-indent: 10px;
 }
 article h3 {
   font-weight: normal;
   font-size: 15px;
-  padding-top: 10px;
   color: #666;
 }
 article figure,

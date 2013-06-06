@@ -1,5 +1,5 @@
 {
-    "hash": "fdeafd7e1dc224334da6f8d804e131f4",
+    "hash": "add5aca7fe6d7f1377beb1d9782a7e59",
     "packages": [
         {
             "name": "phing/phing",
@@ -220,6 +220,55 @@
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
             "time": "2013-03-23 12:03:22"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "v1.13.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.13.0",
+                "reference": "v1.13.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2013-05-10 15:12:43"
         }
     ],
     "packages-dev": [

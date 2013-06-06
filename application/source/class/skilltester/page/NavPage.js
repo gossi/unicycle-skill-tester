@@ -37,7 +37,7 @@ qx.Class.define("skilltester.page.NavPage", {
 				path : "/nav/anleitung",
 				cssClass: "icon-medkit"
 			}, {
-				title : "Über",
+				title : "Info",
 				path : "/about",
 				cssClass: "icon-info-sign"
 			}];

@@ -6,6 +6,7 @@ qx.Class.define("skilltester.page.StartPage", {
 		
 		this.set({
 			id: "start",
+			file: "start",
 			title: "Unicycle Skill Tester",
 			showBackButton : true,
 			showBackButtonOnTablet : false,
@@ -28,6 +29,10 @@ qx.Class.define("skilltester.page.StartPage", {
 					'die <a href="#/nav/anleitung">Anleitung</a> durch, wie diese App funktioniert.</p>');
 			
 //			this.getContent().add(html);
+		},
+		
+		_getFolderPrefix: function() {
+			return 'general';
 		},
 		
 		_back: function(e) {

@@ -42,7 +42,11 @@ qx.Class.define("skilltester.page.ContentPage", {
 				} catch(e) {
 					this._loadContent(file, function(e) {
 						var req = e.getTarget(),
-							content = req.getResponse();
+							content = req.getResponse(),
+							tmp = document.createElement("div");
+
+						tmp.innerHTML = content;
+						content = tmp.querySelector('section');
 						
 						// cache the result
 						this._cache[file] = content;
@@ -79,7 +83,7 @@ qx.Class.define("skilltester.page.ContentPage", {
 		
 		_loadContent: function(file, fn) {
 			var req = new qx.io.request.Xhr("../../content/" + this._getFolderPrefix() + '/' + this.getFile() + ".html");
-			req.setParser('xml');
+//			req.setParser('xml');
 			req.addListener("success", fn, this);
 			req.send();
 		}

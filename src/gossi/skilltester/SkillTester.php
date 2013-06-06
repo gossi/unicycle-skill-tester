@@ -18,7 +18,8 @@ class SkillTester {
 		$this->routes = new RouteCollection();
 		
 		$this->routes->add('index', new Route('/', array(
-			'controller' => 'gossi\\skilltester\\controller\\IndexController'
+			'controller' => 'gossi\\skilltester\\controller\\PageController',
+			'page' => 'index'
 		)));
 		
 		$this->routes->add('app', new Route('/app', array(
@@ -30,8 +31,12 @@ class SkillTester {
 			'suffix' => '.json'
 		)));
 		
-		$this->routes->add('insert', new Route('/_insert', array(
-			'controller' => 'gossi\\skilltester\\controller\\InsertController'
+		$this->routes->add('insert', new Route('/populate', array(
+			'controller' => 'gossi\\skilltester\\controller\\PopulateController'
+		)));
+		
+		$this->routes->add('content', new Route('/{page}', array(
+			'controller' => 'gossi\\skilltester\\controller\\PageController'
 		)));
 	}
 	
