@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
+{% set links = {
+	'': 'Startseite', 
+	'installation': 'Installieren',
+	'anleitung': 'Anleitung',
+	'mitmachen': 'Mitmachen'}
+%}
   <head>
     <meta charset="utf-8">
     <base href="{{ base }}/">
+    {% if active == '' %}
     <title>Unicycle Skilltester App</title>
+    {% else %}
+    <title>{{ links[active] }} · Unicycle Skilltester App</title>
+    {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="assets/components/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -65,11 +75,24 @@
     	</div>
     </footer>
     
-    <!-- Le javascript
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/components/jquery/jquery.min.js"></script>
     <script src="assets/components/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  _paq.push(["trackPageView"]);
+	  _paq.push(["enableLinkTracking"]);
+	
+	  (function() {
+	    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://analytics.creative2.net/";
+	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+	    _paq.push(["setSiteId", "6"]);
+	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+	    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
   </body>
 </html>
