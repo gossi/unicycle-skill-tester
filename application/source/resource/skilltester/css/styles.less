@@ -77,8 +77,22 @@ a, a:link, a:visited {
 NAV
 */
 
-#nav ul.list li > div {
-	margin-left: 5px;
+#nav ul.list li {
+//	padding-left: 50px;
+	
+	&:before {
+//		clear: right;
+//		float: left;
+		clear: left;
+		display: block;
+//		margin-right: 50px;
+		
+	}
+	
+	
+	> div {
+		margin-left: 5px;
+	}
 }
 
 /**

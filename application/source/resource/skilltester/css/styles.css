@@ -1326,6 +1326,10 @@ a:visited {
 /**
 NAV
 */
+#nav ul.list li:before {
+  clear: left;
+  display: block;
+}
 #nav ul.list li > div {
   margin-left: 5px;
 }
